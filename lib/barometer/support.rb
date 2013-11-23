@@ -1,7 +1,7 @@
-require 'barometer/support/version'
-require 'barometer/support/key_file_parser'
-require 'barometer/support/matchers'
-require 'barometer/support/factory'
+require_relative 'support/version'
+require_relative 'support/key_file_parser'
+require_relative 'support/matchers'
+require_relative 'support/factory'
 
 module Barometer
   module Support
