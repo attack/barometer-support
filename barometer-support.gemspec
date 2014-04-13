@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.name          = 'barometer-support'
   spec.version       = Barometer::Support::VERSION
   spec.platform      = Gem::Platform::RUBY
-  spec.authors       = ['Mark G']
-  spec.email         = ['barometer@attackcorp.com']
+  spec.authors       = ['Mark Gangl']
+  spec.email         = ['mark@attackcorp.com']
   spec.description   = 'Barometer support files'
   spec.summary       = spec.description
   spec.homepage      = 'http://github.com/attack/barometer-support'
