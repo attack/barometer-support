@@ -42,9 +42,9 @@ module Barometer
           if type_is_time?
             set_value "2013-01-01 10:15:30 am"
           elsif type_is_sun?
-            rise = Time.utc(2013,1,1,10,15,30)
-            set = Time.utc(2013,1,1,18,14,56)
-            set_value Data::Sun.new(rise: rise, set: set)
+            rise = ::Time.utc(2013,1,1,10,15,30)
+            set = ::Time.utc(2013,1,1,18,14,56)
+            set_value @type.new(rise: rise, set: set)
           else
             set_value 10
           end
@@ -54,11 +54,11 @@ module Barometer
         def sets_value?
           if type_is_time?
             set_value "10 15 30 2013 01 01 am", "%H %M %S %Y %m %d %p"
-            assert value.to_i == Time.utc(2013,01,01,10,15,30).to_i, "expected value of '2013-01-01 10:15:30 am', got '#{print_value}'"
+            assert value.to_i == ::Time.utc(2013,01,01,10,15,30).to_i, "expected value of '2013-01-01 10:15:30 am', got '#{print_value}'"
           elsif type_is_sun?
-            rise = Time.utc(2013,1,1,10,15,30)
-            set = Time.utc(2013,1,1,18,14,56)
-            set_value Data::Sun.new(rise: rise, set: set)
+            rise = ::Time.utc(2013,1,1,10,15,30)
+            set = ::Time.utc(2013,1,1,18,14,56)
+            set_value @type.new(rise: rise, set: set)
             assert print_value == "rise: 10:15, set: 18:14", "expected value of 'rise: 10:15, set: 18:14'', got '#{print_value}'"
           else
             set_value 10
@@ -109,11 +109,11 @@ module Barometer
         end
 
         def type_is_time?
-          @type == Time
+          @type == ::Time
         end
 
         def type_is_sun?
-          @type == Data::Sun
+          @type.to_s.end_with? 'Data::Sun'
         end
 
         def assert(test, failure_message)
