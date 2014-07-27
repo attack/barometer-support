@@ -45,6 +45,10 @@ module Barometer
             rise = ::Time.utc(2013,1,1,10,15,30)
             set = ::Time.utc(2013,1,1,18,14,56)
             set_value @type.new(rise: rise, set: set)
+          elsif type_is_symbol?
+            set_value 'foo'
+          elsif type_is_hash?
+            set_value(foo: 'bar')
           else
             set_value 10
           end
@@ -60,6 +64,12 @@ module Barometer
             set = ::Time.utc(2013,1,1,18,14,56)
             set_value @type.new(rise: rise, set: set)
             assert print_value == "rise: 10:15, set: 18:14", "expected value of 'rise: 10:15, set: 18:14'', got '#{print_value}'"
+          elsif type_is_symbol?
+            set_value 'foo'
+            assert value == :foo, "expected value of ':foo', got '#{value}'"
+          elsif type_is_hash?
+            set_value(foo: 'bar')
+            assert value == {foo: 'bar'}, "expected value of '{foo: 'bar'}', got '#{value}'"
           else
             set_value 10
             assert value.to_i == 10, "expected value of '10', got '#{value.to_i}'"
@@ -114,6 +124,14 @@ module Barometer
 
         def type_is_sun?
           @type.to_s.end_with? 'Data::Sun'
+        end
+
+        def type_is_symbol?
+          @type == ::Symbol
+        end
+
+        def type_is_hash?
+          @type == ::Hash
         end
 
         def assert(test, failure_message)
